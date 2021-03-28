@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 app.get('/api/users', userCtrl.index);
-app.get('/api/users/me', passport.authenticate('jwt'), userCtrl.getUserInfo);
+app.get('/api/users/me', passport.authenticate('jwt', { session: false }), userCtrl.getUserInfo);
 app.get('/api/users/:id', userCtrl.show);
 app.get('/api/auth/verify', registerValidations, userCtrl.verify);
 app.post('/api/auth/register', registerValidations, userCtrl.create);

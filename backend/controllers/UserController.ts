@@ -75,7 +75,7 @@ class UserController {
                 emailFrom: 'admin@gameplay.com',
                 emailTo: data.email,
                 subject: 'Подтверждение почты PlayGame',
-                html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:${process.env.PORT || 5000}/api/users/verify?hash=${data.confirm_hash}">по этой ссылке</a>`,
+                html: `Для того, чтобы подтвердить почту, перейдите <a href="http://localhost:${process.env.PORT || 5000}/api/auth/verify?hash=${data.confirm_hash}">по этой ссылке</a>`,
             }, (err: Error | null) => {
                 if (err) {
                     res.status(500).json({
@@ -137,8 +137,7 @@ class UserController {
                 status: 'success',
                 data: {
                     ...user,
-                    // @ts-ignore
-                    token: jwt.sign({ data: req.user }, process.env.SECRET_KEY, { expiresIn: '30d' })
+                    token: jwt.sign({ data: req.user }, process.env.SECRET_KEY || '123', { expiresIn: '30d' })
                 }
             });
         } catch (e) {
